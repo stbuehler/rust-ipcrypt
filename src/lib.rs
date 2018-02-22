@@ -33,7 +33,7 @@ extern crate core;
 use std::net::Ipv4Addr;
 
 use core::convert::{From, Into};
-use core::ops::BitXorAssign;
+use core::ops::{BitXor, BitXorAssign};
 
 /// Alias for the key type (16 bytes)
 pub type Key = [u8; 16];
@@ -169,6 +169,19 @@ impl Into<u32> for State {
 	fn into(self) -> u32 {
 		let State(a, b, c, d) = self;
 		((a as u32) << 24) | ((b as u32) << 16) | ((c as u32) << 8) | (d as u32)
+	}
+}
+
+impl BitXor for State {
+	type Output = State;
+
+	#[inline(always)]
+	fn bitxor(mut self, rhs: State) -> Self::Output {
+		self.0 ^= rhs.0;
+		self.1 ^= rhs.1;
+		self.2 ^= rhs.2;
+		self.3 ^= rhs.3;
+		self
 	}
 }
 

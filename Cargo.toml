@@ -17,6 +17,9 @@ travis-ci = { repository = "stbuehler/rust-ipcrypt" }
 appveyor = { repository = "stbuehler/rust-ipcrypt" }
 
 [[example]]
+name = "attack"
+
+[[example]]
 name = "cipcrypt"
 crate-type = ["cdylib"]
 
@@ -28,3 +31,6 @@ lto = true
 no-std = []
 
 [dependencies]
+
+[dev-dependencies]
+rand = "0.4"
