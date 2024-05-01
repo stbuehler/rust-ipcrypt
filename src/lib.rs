@@ -12,8 +12,9 @@
 //! endian (network order; for consistency with how IPv4 adresses are
 //! represented as `u32`).
 //!
-//! This crate supports a `no-std` feature which removes support for
-//! `Ipv4Addr` (because it's not available in `core`).
+//! This crate supports a `no-std` feature; it removed support for
+//! `Ipv4Addr` previously (because it wasn't available in `core` before
+//! rust 1.77).
 //!
 //! # Example
 //!
@@ -23,10 +24,9 @@
 //! println!("{}", ipcrypt::encrypt(addr, b"some 16-byte key"));
 //! ```
 
-#![cfg_attr(feature = "no-std", no_std)]
+#![no_std]
 
-#[cfg(not(feature = "no-std"))]
-use std::net::Ipv4Addr;
+use core::net::Ipv4Addr;
 
 use core::convert::{From, Into};
 use core::ops::{BitXor, BitXorAssign};
@@ -133,7 +133,6 @@ impl Into<[u8; 4]> for State {
 	}
 }
 
-#[cfg(not(feature = "no-std"))]
 impl From<Ipv4Addr> for State {
 	#[inline(always)]
 	fn from(ip: Ipv4Addr) -> Self {
@@ -142,7 +141,6 @@ impl From<Ipv4Addr> for State {
 	}
 }
 
-#[cfg(not(feature = "no-std"))]
 impl Into<Ipv4Addr> for State {
 	#[inline(always)]
 	fn into(self) -> Ipv4Addr {
@@ -239,10 +237,9 @@ where
 }
 
 #[cfg(test)]
-#[cfg(not(feature = "no-std"))]
 mod test {
 	use crate::{decrypt, encrypt, Key};
-	use std::net::Ipv4Addr;
+	use core::net::Ipv4Addr;
 
 	fn check_addr(key: &Key, plain: Ipv4Addr, cipher: Ipv4Addr) {
 		assert_eq!(encrypt(plain, key), cipher);
