@@ -3,6 +3,7 @@ name = "ipcrypt"
 # also bump version in html_root_url in src/lib.rs
 version = "0.1.0"
 authors = ["Stefan Bühler <stbuehler@web.de>"]
+edition = "2021"
 description = "Symmetric IPv4 address encryption"
 documentation = "https://docs.rs/ipcrypt"
 homepage = "https://github.com/stbuehler/rust-ipcrypt"

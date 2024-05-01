@@ -18,16 +18,15 @@
 //! # Example
 //!
 //! ```
+//! # #[cfg(not(feature = "no-std"))]
+//! # {
 //! use std::net::Ipv4Addr;
 //! let addr = "127.0.0.1".parse::<Ipv4Addr>().unwrap();
 //! println!("{}", ipcrypt::encrypt(addr, b"some 16-byte key"));
+//! # }
 //! ```
 
 #![cfg_attr(feature = "no-std", no_std)]
-#![no_implicit_prelude]
-
-#[cfg(not(feature = "no-std"))]
-extern crate core;
 
 #[cfg(not(feature = "no-std"))]
 use std::net::Ipv4Addr;
@@ -215,9 +214,12 @@ impl<'a> From<&'a Key> for KeyStates {
 /// # Example
 ///
 /// ```
+/// # #[cfg(not(feature = "no-std"))]
+/// # {
 /// use std::net::Ipv4Addr;
 /// let addr = "127.0.0.1".parse::<Ipv4Addr>().unwrap();
 /// println!("{}", ipcrypt::encrypt(addr, b"some 16-byte key"));
+/// }
 /// ```
 pub fn encrypt<T>(v: T, key: &Key) -> T
 where
@@ -231,9 +233,12 @@ where
 /// # Example
 ///
 /// ```
+/// # #[cfg(not(feature = "no-std"))]
+/// # {
 /// use std::net::Ipv4Addr;
 /// let addr = "114.62.227.59".parse::<Ipv4Addr>().unwrap();
 /// println!("{}", ipcrypt::decrypt(addr, b"some 16-byte key"));
+/// # }
 /// ```
 pub fn decrypt<T>(v: T, key: &Key) -> T
 where
@@ -245,7 +250,7 @@ where
 #[cfg(test)]
 #[cfg(not(feature = "no-std"))]
 mod test {
-	use {decrypt, encrypt, Key};
+	use crate::{decrypt, encrypt, Key};
 	use std::net::Ipv4Addr;
 
 	fn check_addr(key: &Key, plain: Ipv4Addr, cipher: Ipv4Addr) {
@@ -280,7 +285,7 @@ mod test {
 
 #[cfg(test)]
 mod test_raw {
-	use {decrypt, encrypt, Key};
+	use crate::{decrypt, encrypt, Key};
 
 	fn check(key: &Key, plain: [u8; 4], cipher: [u8; 4]) {
 		assert_eq!(encrypt(plain, key), cipher);
