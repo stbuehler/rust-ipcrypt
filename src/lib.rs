@@ -18,12 +18,9 @@
 //! # Example
 //!
 //! ```
-//! # #[cfg(not(feature = "no-std"))]
-//! # {
-//! use std::net::Ipv4Addr;
+//! # use core::net::Ipv4Addr;
 //! let addr = "127.0.0.1".parse::<Ipv4Addr>().unwrap();
 //! println!("{}", ipcrypt::encrypt(addr, b"some 16-byte key"));
-//! # }
 //! ```
 
 #![cfg_attr(feature = "no-std", no_std)]
@@ -214,12 +211,9 @@ impl<'a> From<&'a Key> for KeyStates {
 /// # Example
 ///
 /// ```
-/// # #[cfg(not(feature = "no-std"))]
-/// # {
-/// use std::net::Ipv4Addr;
+/// # use core::net::Ipv4Addr;
 /// let addr = "127.0.0.1".parse::<Ipv4Addr>().unwrap();
 /// println!("{}", ipcrypt::encrypt(addr, b"some 16-byte key"));
-/// }
 /// ```
 pub fn encrypt<T>(v: T, key: &Key) -> T
 where
@@ -233,12 +227,9 @@ where
 /// # Example
 ///
 /// ```
-/// # #[cfg(not(feature = "no-std"))]
-/// # {
-/// use std::net::Ipv4Addr;
+/// # use core::net::Ipv4Addr;
 /// let addr = "114.62.227.59".parse::<Ipv4Addr>().unwrap();
 /// println!("{}", ipcrypt::decrypt(addr, b"some 16-byte key"));
-/// # }
 /// ```
 pub fn decrypt<T>(v: T, key: &Key) -> T
 where
