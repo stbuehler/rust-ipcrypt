@@ -247,6 +247,7 @@ where
 mod test {
 	use {decrypt, encrypt, Key};
 	use std::net::Ipv4Addr;
+	use std::assert_eq;
 
 	fn check_addr(key: &Key, plain: Ipv4Addr, cipher: Ipv4Addr) {
 		assert_eq!(encrypt(plain, key), cipher);
@@ -281,6 +282,7 @@ mod test {
 #[cfg(test)]
 mod test_raw {
 	use {decrypt, encrypt, Key};
+	use std::assert_eq;
 
 	fn check(key: &Key, plain: [u8; 4], cipher: [u8; 4]) {
 		assert_eq!(encrypt(plain, key), cipher);
