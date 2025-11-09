@@ -28,8 +28,16 @@
 
 use core::net::Ipv4Addr;
 
-use core::convert::{From, Into};
-use core::ops::{BitXor, BitXorAssign};
+use core::{
+	convert::{
+		From,
+		Into,
+	},
+	ops::{
+		BitXor,
+		BitXorAssign,
+	},
+};
 
 /// Alias for the key type (16 bytes)
 pub type Key = [u8; 16];
@@ -238,7 +246,11 @@ where
 
 #[cfg(test)]
 mod test {
-	use crate::{decrypt, encrypt, Key};
+	use crate::{
+		decrypt,
+		encrypt,
+		Key,
+	};
 	use core::net::Ipv4Addr;
 
 	fn check_addr(key: &Key, plain: Ipv4Addr, cipher: Ipv4Addr) {
@@ -273,7 +285,11 @@ mod test {
 
 #[cfg(test)]
 mod test_raw {
-	use crate::{decrypt, encrypt, Key};
+	use crate::{
+		decrypt,
+		encrypt,
+		Key,
+	};
 
 	fn check(key: &Key, plain: [u8; 4], cipher: [u8; 4]) {
 		assert_eq!(encrypt(plain, key), cipher);

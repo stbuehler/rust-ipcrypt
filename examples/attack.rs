@@ -14,15 +14,18 @@
 extern crate ipcrypt;
 extern crate rand;
 
+use ipcrypt::{
+	encrypt,
+	State,
+};
 use rand::Rng;
-use ipcrypt::{State, encrypt};
 
 fn main() {
 	let mut rng = rand::thread_rng();
 
 	let key: ipcrypt::Key = rng.gen();
 
-	let delta_input: State  = State::from([0x0a, 0x02, 0x00, 0x00]);
+	let delta_input: State = State::from([0x0a, 0x02, 0x00, 0x00]);
 	let delta_output: State = State::from([0x60, 0x70, 0x4d, 0x0c]);
 
 	const TOTAL: u64 = 1u64 << 32;
@@ -37,5 +40,10 @@ fn main() {
 		}
 	}
 
-	println!("Found hits: {}/{} = {}", hits, TOTAL, hits as f32 / TOTAL as f32);
+	println!(
+		"Found hits: {}/{} = {}",
+		hits,
+		TOTAL,
+		hits as f32 / TOTAL as f32
+	);
 }
