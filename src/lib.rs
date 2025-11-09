@@ -125,10 +125,10 @@ impl From<[u8; 4]> for State {
 	}
 }
 
-impl Into<[u8; 4]> for State {
+impl From<State> for [u8; 4] {
 	#[inline(always)]
-	fn into(self) -> [u8; 4] {
-		let State(a, b, c, d) = self;
+	fn from(val: State) -> Self {
+		let State(a, b, c, d) = val;
 		[a, b, c, d]
 	}
 }
@@ -141,10 +141,10 @@ impl From<Ipv4Addr> for State {
 	}
 }
 
-impl Into<Ipv4Addr> for State {
+impl From<State> for Ipv4Addr {
 	#[inline(always)]
-	fn into(self) -> Ipv4Addr {
-		let octets: [u8; 4] = self.into();
+	fn from(val: State) -> Self {
+		let octets: [u8; 4] = val.into();
 		octets.into()
 	}
 }
@@ -158,10 +158,10 @@ impl From<u32> for State {
 	}
 }
 
-impl Into<u32> for State {
+impl From<State> for u32 {
 	#[inline(always)]
-	fn into(self) -> u32 {
-		let State(a, b, c, d) = self;
+	fn from(val: State) -> Self {
+		let State(a, b, c, d) = val;
 		((a as u32) << 24) | ((b as u32) << 16) | ((c as u32) << 8) | (d as u32)
 	}
 }
